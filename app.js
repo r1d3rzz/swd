@@ -267,16 +267,21 @@ const products = [
   },
 ];
 
-const filterProducts = (el, callback) => {
-  let result = [];
-  for (e of el) {
-    if (callback(e)) {
-      result.push(e);
-    }
-  }
-  return result;
-};
+let updateProductPrices = products.map((product) => {
+  let data = {
+    id: product.id,
+    title: product.title,
+    price:
+      product.price + product.price * (product.rating.rate >= 4 ? 0.4 : 0.2),
+    rating: product.rating.rate,
+  };
 
-let res = filterProducts(products, (p) => p.rating.rate > 4);
+  return data;
+});
 
-console.table(res);
+let res = products.reduce((b, { price }) => {
+  console.log(price, b);
+  return price + b;
+}, 0);
+
+console.log(res);
