@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <header class="fixed w-full bg-white z-50">
+      <nav
+        class="flex justify-between px-10 py-3 border border-b-slate-800 border-b-[2px]"
+      >
+        <div class="text-2xl font-medium">Logo.</div>
+        <div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="{1.5}"
+            stroke="currentColor"
+            class="size-9"
+            id="sideMenuBtn"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+            />
+          </svg>
+        </div>
+      </nav>
+    </header>
+
+    <section
+      id="side-menu"
+      class="fixed right-0 pt-20 bg-cyan-300 z-40 h-screen duration-200"
+    >
+      <nav class="flex flex-col w-[300px] select-none">
+        <a href="#" class="mb-2 p-2 ps-10 hover:bg-cyan-400 duration-100"
+          >Home</a
+        >
+        <a href="#" class="mb-2 p-2 ps-10 hover:bg-cyan-400 duration-100"
+          >Product</a
+        >
+        <a href="#" class="mb-2 p-2 ps-10 hover:bg-cyan-400 duration-100"
+          >Contact</a
+        >
+      </nav>
+    </section>
+
+    <main class="fixed mt-[80px]">
+      <section id="skills-container" class="px-10">
+        <h1 class="text-xl font-serif">
+          Add Your Skills <span class="font-sans" id="skills-count"></span>
+        </h1>
+
+        <ul class="flex gap-2 mt-3 lists">
+          <li
+            class="list border border-black px-2 py-1 select-none cursor-pointer"
+          >
+            HTML
+          </li>
+          <li
+            class="list border border-black px-2 py-1 select-none cursor-pointer"
+          >
+            CSS
+          </li>
+          <li
+            class="list border border-black px-2 py-1 select-none cursor-pointer"
+          >
+            JS
+          </li>
+          <li
+            class="list border border-black px-2 py-1 select-none cursor-pointer"
+          >
+            PHP
+          </li>
+          <li
+            class="list border border-black px-2 py-1 select-none cursor-pointer"
+          >
+            C#
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <script src="./js/app.js"></script>
+  </body>
+</html>
