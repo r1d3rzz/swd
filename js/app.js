@@ -8,7 +8,7 @@ listsGroup.forEach((list) => {
   list.addEventListener("click", (e) => {
     list.classList.toggle("bg-slate-200");
 
-    let count = document.querySelectorAll(".list.bg-slate-200").length;
+    let count = document.querySelectorAll(".list.bg-blue-200").length;
 
     skillCount.innerText = count > 0 ? `( ${count} )` : "";
   });
