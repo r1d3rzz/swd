@@ -27,18 +27,18 @@ const singleList = (currentValue) => {
   class="list border-2 border-black flex justify-between items-center px-3 py-2 mb-2"
 >
   <div class="flex">
-    <input type="checkbox" class="me-2 accent-emerald-950" id="checkBtn"/>
+    <input type="checkbox" class="me-2 accent-emerald-950 checkBtn"/>
     <p class="font-medium currentText">${currentValue}</p>
   </div>
   <div class="flex">
-    <button class="border-2 border-black p-1.5 me-2" id="editBtn">
+    <button class="border-2 border-black p-1.5 me-2 editBtn">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
         stroke-width="1.5"
         stroke="currentColor"
-        class="size-4"
+        class="size-4 pointer-events-none"
       >
         <path
           stroke-linecap="round"
@@ -47,14 +47,14 @@ const singleList = (currentValue) => {
         />
       </svg>
     </button>
-    <button class="border-2 border-black p-1.5" id="delBtn">
+    <button class="border-2 border-black p-1.5 delBtn">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
         stroke-width="1.5"
         stroke="currentColor"
-        class="size-4"
+        class="size-4 pointer-events-none"
       >
         <path
           stroke-linecap="round"
@@ -65,22 +65,22 @@ const singleList = (currentValue) => {
     </button>
   </div>
 </div>`;
+
   newList.innerHTML = list;
 
-  const checkBtn = newList.querySelector("#checkBtn");
-  const currentText = newList.querySelector(".currentText");
-  const editBtn = newList.querySelector("#editBtn");
-  const delBtn = newList.querySelector("#delBtn");
+  return newList;
+};
 
-  checkBtn.addEventListener("change", () => {
-    updateDoneCount();
-    currentText.classList.toggle("line-through");
-    newList.classList.toggle("opacity-20");
-    newList.classList.toggle("scale-95");
-    editBtn.classList.toggle("hidden");
-  });
+// handle from parent (event bubbling or delegation)
+const listHandler = (e) => {
+  let list = e.target.closest(".singleList");
+  let editBtn = list.querySelector(".editBtn");
+  let checkBtn = list.querySelector(".checkBtn");
+  let currentText = list.querySelector(".currentText");
 
-  editBtn.addEventListener("click", () => {
+  list.classList.add("duration-200");
+
+  if (e.target.classList.contains("editBtn")) {
     const newInputTag = document.createElement("input");
     newInputTag.className =
       "border-2 border-black px-1 py-0.5 focus-visible:outline-none";
@@ -98,17 +98,24 @@ const singleList = (currentValue) => {
       newInputTag.classList.toggle("hidden");
       currentText.innerText = newInputTag.value;
     });
-  });
+  }
 
-  delBtn.addEventListener("click", () => {
-    if (window.confirm("are u sure?")) {
-      newList.remove();
+  if (e.target.classList.contains("delBtn")) {
+    if (window.confirm("are u sure to delete it?")) {
+      list.remove();
       updateTotalCount();
       updateDoneCount();
     }
-  });
+  }
 
-  return newList;
+  if (e.target.classList.contains("checkBtn")) {
+    updateDoneCount();
+    list.classList.toggle("opacity-25");
+    list.classList.toggle("scale-95");
+    editBtn.classList.toggle("hidden");
+    updateTotalCount();
+  }
 };
 
 addBtn.addEventListener("click", createNewList);
+lists.addEventListener("click", listHandler);
