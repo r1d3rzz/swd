@@ -3,7 +3,9 @@ const addBtn = document.querySelector("#addBtn");
 const lists = document.querySelector("#lists");
 const totalCount = document.querySelector("#totalCount");
 const doneCount = document.querySelector("#doneCount");
+let todoId = 1;
 
+// Business Logic
 const updateTotalCount = () => {
   totalCount.innerText = document.querySelectorAll(".singleList").length;
 };
@@ -13,18 +15,24 @@ const updateDoneCount = () => {
   doneCount.innerText = totalDoneCount.length;
 };
 
-const createNewList = () => {
-  if (textInput.value == "") return false;
-  lists.append(singleList(textInput.value));
+const createNewList = (value) => {
+  // if (textInput.value == "") return false;
+  lists.append(singleList(value));
   textInput.value = null;
   updateTotalCount();
 };
 
 const singleList = (currentValue) => {
   const newList = document.createElement("div");
-  newList.classList.add("singleList", "duration-150");
+  newList.id = "list-" + todoId++;
+  newList.classList.add(
+    "singleList",
+    "duration-100",
+    "animate__animated",
+    "animate__zoomIn"
+  );
   const list = `<div
-  class="list border-2 border-black flex justify-between items-center px-3 py-2 mb-2"
+  class="list border-2 border-black flex justify-between items-center px-3 py-2 mb-2 bg-white"
 >
   <div class="flex">
     <input type="checkbox" class="me-2 accent-emerald-950 checkBtn"/>
@@ -71,51 +79,91 @@ const singleList = (currentValue) => {
   return newList;
 };
 
-// handle from parent (event bubbling or delegation)
-const listHandler = (e) => {
-  let list = e.target.closest(".singleList");
-  let editBtn = list.querySelector(".editBtn");
-  let checkBtn = list.querySelector(".checkBtn");
-  let currentText = list.querySelector(".currentText");
+const deleteTodo = (id) => {
+  let list = document.querySelector(`#${id}`);
 
-  list.classList.add("duration-200");
-
-  if (e.target.classList.contains("editBtn")) {
-    const newInputTag = document.createElement("input");
-    newInputTag.className =
-      "border-2 border-black px-1 py-0.5 focus-visible:outline-none";
-    currentText.after(newInputTag);
-    newInputTag.focus();
-    newInputTag.value = currentText.innerText;
-    currentText.classList.add("hidden");
-    editBtn.setAttribute("disabled", true);
-    checkBtn.setAttribute("disabled", true);
-
-    newInputTag.addEventListener("blur", () => {
-      currentText.classList.remove("hidden");
-      editBtn.removeAttribute("disabled");
-      checkBtn.removeAttribute("disabled");
-      newInputTag.classList.toggle("hidden");
-      currentText.innerText = newInputTag.value;
-    });
-  }
-
-  if (e.target.classList.contains("delBtn")) {
-    if (window.confirm("are u sure to delete it?")) {
+  if (
+    window.confirm("are u sure to delete it?") &&
+    list.classList.contains("animate__zoomIn")
+  ) {
+    list.classList.remove("animate__zoomIn");
+    list.classList.add("animate__zoomOut");
+    list.addEventListener("animationend", () => {
       list.remove();
       updateTotalCount();
       updateDoneCount();
-    }
-  }
-
-  if (e.target.classList.contains("checkBtn")) {
-    updateDoneCount();
-    list.classList.toggle("opacity-25");
-    list.classList.toggle("scale-95");
-    editBtn.classList.toggle("hidden");
-    updateTotalCount();
+    });
   }
 };
 
-addBtn.addEventListener("click", createNewList);
+const doneTodo = (id) => {
+  let currentList = document.querySelector(`#${id}`);
+
+  updateDoneCount();
+  let editBtn = currentList.querySelector(".editBtn");
+  currentList.classList.toggle("opacity-25");
+  currentList.classList.toggle("scale-95");
+  editBtn.classList.toggle("hidden");
+  updateTotalCount();
+};
+
+const editTodo = (id) => {
+  let currentList = document.querySelector(`#${id}`);
+
+  let editBtn = currentList.querySelector(".editBtn");
+  let checkBtn = currentList.querySelector(".checkBtn");
+  let currentText = currentList.querySelector(".currentText");
+
+  const newInputTag = document.createElement("input");
+  newInputTag.className =
+    "border-2 border-black px-1 py-0.5 focus-visible:outline-none";
+  currentText.after(newInputTag);
+  newInputTag.focus();
+  newInputTag.value = currentText.innerText;
+  currentText.classList.add("hidden");
+  editBtn.setAttribute("disabled", true);
+  checkBtn.setAttribute("disabled", true);
+
+  const addNewValue = () => {
+    currentText.classList.remove("hidden");
+    editBtn.removeAttribute("disabled");
+    checkBtn.removeAttribute("disabled");
+    newInputTag.classList.toggle("hidden");
+    currentText.innerText = newInputTag.value;
+  };
+
+  newInputTag.addEventListener("blur", addNewValue);
+};
+
+const addTodo = () => {
+  textInput.value.trim() != "" && createNewList(textInput.value);
+};
+
+// handle from parent (event bubbling or delegation)
+const listHandler = (e) => {
+  let list = e.target.closest(".singleList");
+  list.classList.add("duration-200");
+
+  if (e.target.classList.contains("editBtn")) {
+    editTodo(list.id);
+  }
+
+  if (e.target.classList.contains("delBtn")) {
+    deleteTodo(list.id);
+  }
+
+  if (e.target.classList.contains("checkBtn")) {
+    doneTodo(list.id);
+  }
+};
+
+const addTodoHandler = (e) => {
+  if (e.key == "Enter") {
+    addTodo();
+  }
+};
+
+// Listener
+addBtn.addEventListener("click", addTodo);
 lists.addEventListener("click", listHandler);
+textInput.addEventListener("keyup", addTodoHandler);
