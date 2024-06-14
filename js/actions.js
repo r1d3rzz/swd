@@ -1,3 +1,5 @@
+export const preLists = ["Finish Homework", "Go to the Store"];
+
 export const updateTotalCount = () => {
   totalCount.innerText = document.querySelectorAll(".singleList").length;
 };
@@ -10,7 +12,6 @@ export const updateDoneCount = () => {
 export const createNewList = (value) => {
   lists.append(singleList(value));
   textInput.value = null;
-  updateTotalCount();
 };
 
 let todoId = 1;
@@ -38,8 +39,6 @@ export const deleteTodo = (id) => {
     list.classList.add("animate__zoomOut");
     list.addEventListener("animationend", () => {
       list.remove();
-      updateTotalCount();
-      updateDoneCount();
     });
   }
 };
@@ -47,12 +46,10 @@ export const deleteTodo = (id) => {
 export const doneTodo = (id) => {
   let currentList = document.querySelector(`#${id}`);
 
-  updateDoneCount();
   let editBtn = currentList.querySelector(".editBtn");
   currentList.classList.toggle("opacity-25");
   currentList.classList.toggle("scale-95");
   editBtn.classList.toggle("hidden");
-  updateTotalCount();
 };
 
 export const editTodo = (id) => {
