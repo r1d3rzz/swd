@@ -14,3 +14,8 @@ export const createProductRecordForm = document.querySelector(
 export const btnAddProductRecord = document.querySelector(
   "#btnAddProductRecord"
 );
+export const recordRowTemplate = document.querySelector("#recordRowTemplate");
+export const recordRowGroup = document.querySelector("#recordRowGroup");
+export const recordTotal = document.querySelector("#recordTotal");
+export const recordTax = document.querySelector("#recordTax");
+export const recordNetTotal = document.querySelector("#recordNetTotal");
