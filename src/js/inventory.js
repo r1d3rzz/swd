@@ -1,60 +1,48 @@
+import { products } from "./inititalRender";
 import {
-  newProductName,
-  newProductPrice,
-  newProductsList,
-  productsList,
+  itemslist,
+  newItemAddForm,
+  newItemListTemplate,
+  productLists,
 } from "./selectors";
 import { v4 as uuidv4 } from "uuid";
-import { products } from "./states";
 
-export const btnAddNewProductHandler = () => {
-  if (newProductName.value == "" || newProductPrice.valueAsNumber == "") {
-    return alert("Please Enter Name and Price Value");
-  }
+export const addNewItemHandler = (e) => {
+  e.preventDefault();
+  const form = new FormData(newItemAddForm);
+  const name = form.get("name");
+  const price = form.get("price");
+  const productId = uuidv4();
+  itemslist.append(createNewList(productId, name, price));
 
-  const cardId = uuidv4();
-
-  const newProductItem = createProduct(
-    cardId,
-    newProductName.value,
-    newProductPrice.valueAsNumber
-  );
-
-  productsList.append(
-    new Option(`${newProductName.value} - ${newProductPrice.value} mmk`, cardId)
-  );
+  const newOption = new Option(`${name} - ${price}`, productId);
+  productLists.append(newOption);
   products.push({
-    id: cardId,
-    name: newProductName.value,
-    price: newProductPrice.value,
+    id: productId,
+    name,
+    price,
   });
+  newItemAddForm.reset();
 
-  newProductName.value = null;
-  newProductPrice.value = null;
-  newProductsList.append(newProductItem);
+  console.log(products);
 };
 
-export const renderProducts = (products) => {
+export const renderProduct = (products) => {
   products.forEach(({ id, name, price }) => {
-    newProductsList.append(createProduct(id, name, price));
-    productsList.append(new Option(`${name} - ${price} mmk`, id));
+    itemslist.append(createNewList(id, name, price));
+    productLists.append(new Option(`${name} - ${price}`, id));
   });
 };
 
-export const createProduct = (id, name, price) => {
-  const newSingleProductTemplate = document.querySelector(
-    "#newSingleProductTemplate"
-  );
-  const newSingleProduct = newSingleProductTemplate.content.cloneNode(true);
-  const newSingleProductName = newSingleProduct.querySelector(
-    "#newSingleProductName"
-  );
-  const newSingleProductPrice = newSingleProduct.querySelector(
-    "#newSingleProductPrice"
-  );
-  const productCard = newSingleProduct.querySelector(".productCard");
-  productCard.id = id;
-  newSingleProductName.innerText = name;
-  newSingleProductPrice.innerText = price;
-  return newSingleProduct;
+export const createNewList = (id, name, price) => {
+  const newItemList = newItemListTemplate.content.cloneNode(true);
+  const li = newItemList.querySelector("li");
+  const itemName = newItemList.querySelector(".itemName");
+  const itemPrice = newItemList.querySelector(".itemPrice");
+  li.setAttribute("productId", id);
+
+  itemName.innerText = name;
+  itemPrice.innerText = price;
+
+  return newItemList;
 };

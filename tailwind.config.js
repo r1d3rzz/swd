@@ -3,16 +3,17 @@ export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
-    "./node_modules/flowbite/**/*.js",
+    "node_modules/preline/dist/*.js",
   ],
   theme: {
-    fontFamily: {
-      sans: ['"Montserrat", "Padauk", sans-serif'],
-    },
+    extend: {},
     container: {
       center: true,
     },
-    extend: {},
+    fontFamily: {
+      sans: ['"Montserrat"', "system-ui", "sans-serif"],
+      padauk: ['"Padauk"', "system-ui", "sans-serif"],
+    },
   },
-  plugins: [require("flowbite/plugin")],
+  plugins: [require("preline/plugin")],
 };

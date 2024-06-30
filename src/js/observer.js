@@ -1,30 +1,16 @@
-import { createItemTax } from "./records";
-import {
-  recordNetTotal,
-  recordRowGroup,
-  recordTax,
-  recordTotal,
-} from "./selectors";
+import { calculateTotalAmount } from "./record";
+
+// Select the node that will be observed for mutations
+const targetNode = document.getElementById("recordsContainer");
 
 const config = { attributes: true, childList: true, subtree: true };
 
 const observer = (mutationList, observer) => {
-  let totalCurrentRows = recordRowGroup.querySelectorAll(
-    ".currentRecordRow .recordTotalPrice"
-  );
-  let total = 0;
-  totalCurrentRows.forEach((totalCurrentRow) => {
-    let price = parseFloat(totalCurrentRow.innerText);
-    total += price;
-  });
-  let tax = createItemTax(total);
-  recordTotal.innerText = total;
-  recordTax.innerHTML = tax;
-  recordNetTotal.innerHTML = tax + total;
+  calculateTotalAmount();
 };
 
-const observerCallback = new MutationObserver(observer);
+const callback = new MutationObserver(observer);
 
-observerCallback.observe(recordRowGroup, config);
+callback.observe(targetNode, config);
 
 export default observer;

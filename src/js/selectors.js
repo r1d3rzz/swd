@@ -1,21 +1,23 @@
-export const btnManageInventory = document.querySelector("#btnManageInventory");
-export const manageInventorySlider = document.querySelector(
-  "#manageInventorySlider"
+export const sideMenu = document.querySelector("#sideMenu");
+export const manageInventoryBtn = document.querySelector("#manageInventoryBtn");
+export const closeSideMenuBtn = document.querySelector("#closeSideMenuBtn");
+export const itemslist = document.querySelector("#itemslist");
+export const newItemAddForm = document.querySelector("#newItemAddForm");
+export const newItemAddBtn = document.querySelector("#newItemAddBtn");
+export const productLists = document.querySelector("#productLists");
+export const recordsContainer = document.querySelector("#recordsContainer");
+export const addRecordBtn = document.querySelector("#addRecordBtn");
+export const recordForm = document.querySelector("#recordForm");
+export const totalPrice = document.querySelector("#totalPrice");
+export const totalTax = document.querySelector("#totalTax");
+export const totalAmount = document.querySelector("#totalAmount");
+export const checkoutBtn = document.querySelector("#checkoutBtn");
+export const newProductOptionTemplate = document.querySelector(
+  "#newProductOptionTemplate"
 );
-export const btnCloseInventory = document.querySelector("#btnCloseInventory");
-export const newProductName = document.querySelector("#newProductName");
-export const newProductPrice = document.querySelector("#newProductPrice");
-export const btnAddNewProduct = document.querySelector("#btnAddNewProduct");
-export const newProductsList = document.querySelector("#newProductsList");
-export const productsList = document.querySelector("#productsList");
-export const createProductRecordForm = document.querySelector(
-  "#createProductRecordForm"
+export const newItemListTemplate = document.querySelector(
+  "#newItemListTemplate"
 );
-export const btnAddProductRecord = document.querySelector(
-  "#btnAddProductRecord"
+export const newRecordListTemplate = document.querySelector(
+  "#newRecordListTemplate"
 );
-export const recordRowTemplate = document.querySelector("#recordRowTemplate");
-export const recordRowGroup = document.querySelector("#recordRowGroup");
-export const recordTotal = document.querySelector("#recordTotal");
-export const recordTax = document.querySelector("#recordTax");
-export const recordNetTotal = document.querySelector("#recordNetTotal");

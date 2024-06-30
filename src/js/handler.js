@@ -1,10 +1,14 @@
-import { manageInventorySlider } from "./selectors";
+import { sideMenu } from "./selectors";
 
-export const manageInventoryHandler = () => {
-  manageInventorySlider.classList.remove("translate-x-full");
-  manageInventorySlider.classList.add("duration-300");
+export const sideMenuHandler = () => {
+  sideMenu.classList.add("duration-300");
+  sideMenu.classList.remove("translate-x-full");
 };
 
-export const closeManageInventoryHandler = () => {
-  manageInventorySlider.classList.add("translate-x-full");
+export const closeSideMenuHandler = () => {
+  sideMenu.classList.add("translate-x-full");
+};
+
+export const checkoutHandler = () => {
+  window.print();
 };

@@ -1,9 +1,9 @@
-import initialRender from "./initialRender";
+import initialRender from "./inititalRender";
 import listeners from "./listeners";
 import observer from "./observer";
 
 class Invoice {
-  inti() {
+  init() {
     initialRender();
     listeners();
     observer();
